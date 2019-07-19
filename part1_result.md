@@ -62,6 +62,8 @@ All node hosts 파일을 수정한다  --> 프라이빗  IP로 수정
   
   $ hostname  --> hostname 이 잘 바뀌었는지 확인
 ```
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/hostname_nd1.PNG)
+
 ## 6-2 skcc 그룹에 training 계정이 들어 갔는지 확인
 ```
   $ getent group skcc          
