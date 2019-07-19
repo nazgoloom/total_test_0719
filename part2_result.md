@@ -22,8 +22,11 @@ On A.type = B.type;
 
 
 #Problem2
-``
+```
 Create an employee table in the metastore that contains the employee records stored in HDFS
+```
+
+```
 create database problem2;
 
 create EXTERNAL TABLE employee
