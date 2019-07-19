@@ -22,8 +22,11 @@ On A.type = B.type;
 
 
 #Problem2
-## Create an employee table in the metastore that contains the employee records stored in HDFS
+``
+Create an employee table in the metastore that contains the employee records stored in HDFS
+```
 
+```
 create database problem2;
 
 create EXTERNAL TABLE employee
@@ -40,7 +43,9 @@ create EXTERNAL TABLE employee
  )
   STORED AS PARQUET
   LOCATION '/user/training/problem2/data/employee'
-  
+```
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem2_table%20create.PNG)
   
 #Problem3
 Output Requirements
