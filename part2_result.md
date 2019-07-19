@@ -48,6 +48,7 @@ create EXTERNAL TABLE employee
 ![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem2_table%20create.PNG)
   
 #Problem3
+```
 Output Requirements
  Create a metastore table named solution stored in the problem3 database that
 contains the customer records that match the criteria
@@ -55,9 +56,12 @@ contains the customer records that match the criteria
 home phone of the customerf
  Maintain the same column names and datatypes in the new table as the fields from
 the customer table
+```
 
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem3_table%20create.PNG)
 
 #Problem5
+```
 Output Requirements
  Write the report query in the local file /home/training/problem5/solution.sql
  Executing the solution.sql script from the hive command-line tools should generate
@@ -66,9 +70,13 @@ the report output
 between fields
  Only output records that have a city value of ‘Palo Alto’ and state value of ‘CA’
  Duplicate records (if any) should be included
+```
 
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem5.PNG)
 
 #Problem6
+
+```
 Output Requirements
  Create a new table named solution stored in the problem6 database with the same
 file format as the employee table
@@ -76,7 +84,9 @@ file format as the employee table
 the birthday field. Rename that column to “birthyear”
  The birthday field in the solution table should be truncated to only contain year
 instead of the current month/day/year data that is in the employee table
+```
 
+```
 create table solution
 (
 	  id       INT,
@@ -93,9 +103,13 @@ select id, fname, lname, address, city, state, zip, substring(birthday,7,9)
 from employee;
 
 select * from solution limit 10;
+```
 
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem6.PNG)
 
 #Problem7
+
+```
 Output Requirements
  Write the report query in the local file /home/training/problem7/solution.sql
  Executing the solution.sql script from the hive command-line tools should generate
@@ -105,15 +119,21 @@ first name
  The output should be sorted by last name and then by first name and should only
 contain employees whose city is ‘Seattle’
  Duplicate names should be included (if any)
+```
 
+```
 select * from employee limit 10;
 
 select concat(lname, ',', fname) as fullname from employee 
 where city ='Seattle'  limit 10;
+```
 
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem7.PNG)
 
 
 #Problem8
+
+```
 Data Description
 The data files are in the HDFS directory /user/training/problem8/data/customer/.
 MySQL database information:
@@ -125,20 +145,28 @@ MySQL database information:
 Output Requirements
  Export all of the customer data from HDFS into the MySQL solution table
  The solution table already exists in the MySQL database but currently has no rows
+```
 
+```
 create database problem8;
 
 sqoop export --connect jdbc:mysql://localhost/problem8 --username cloudera --password cloudera --export-dir /user/training/problem8/data/customer --table solution --input-fields-terminated-by '\t'
+```
 
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem8_sqoop.PNG)
 
 #Problem9
+
+```
 Output Requirements
  Create a new table named solution stored in the problem9 database
  Maintain the same column names and datatypes as the customer table, except
 store the id as a string
  The solution table should have all of the data from the customer table, with the
 addition of the letter ‘A’ to the existing id values to make them unique
+```
 
+```
 select * from customer limit 10;
 
 create table solution
@@ -167,7 +195,9 @@ select concat('A', id),
 alter table customer change id id string;
 
 select * from solution limit 10;
+```
 
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem9.PNG)
 
  
    
