@@ -1,18 +1,17 @@
-part1
+#part1
 
-1. IP 세팅
 
-  
+##1. IP 세팅
 
+```
 nd1  52.79.95.134   172.31.39.168
 nd1  54.180.14.25   172.31.33.77
 nd1  54.180.164.246   172.31.36.182
 nd1  54.180.167.90   172.31.44.121
 nd1  54.180.170.107   172.31.44.125
+```
 
-1. All node에 centos user로 접속 한다
-
-2. All node hosts 파일을 수정한다  --> 프라이빗  IP로 수정 
+All node hosts 파일을 수정한다  --> 프라이빗  IP로 수정 
 
   $ sudo vi /etc/hosts
 172.31.39.168	    nd1.jdh.com nd1
@@ -20,11 +19,14 @@ nd1  54.180.170.107   172.31.44.125
 172.31.36.182       nd3.jdh.com nd3
 172.31.44.121	    nd4.jdh.com nd4
 172.31.44.125	    nd5.jdh.com nd5
+```
 
-
+```
 2. centos pw를 admin 으로 변경한다
 
     $ sudo passwd centos
+```
+
 
 3. All node training user 를 생성하고 권한 준다
    group 을 만들고 권한 준다
