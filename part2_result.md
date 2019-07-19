@@ -18,6 +18,8 @@ from account A
 join (select type, avg(amount) as avg_amt from problem1.account group by type) B
 On A.type = B.type;
 ```
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem1.PNG)
+
 
 #Problem2
 ## Create an employee table in the metastore that contains the employee records stored in HDFS
