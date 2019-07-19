@@ -21,7 +21,7 @@ On A.type = B.type;
 ![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem1.PNG)
 
 
-#Problem2
+## Problem2
 ```
 Create an employee table in the metastore that contains the employee records stored in HDFS
 ```
@@ -47,7 +47,7 @@ create EXTERNAL TABLE employee
 
 ![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem2_table%20create.PNG)
   
-#Problem3
+## Problem3
 ```
 Output Requirements
  Create a metastore table named solution stored in the problem3 database that
@@ -60,7 +60,7 @@ the customer table
 
 ![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem3_table%20create.PNG)
 
-#Problem5
+## Problem5
 ```
 Output Requirements
  Write the report query in the local file /home/training/problem5/solution.sql
@@ -74,7 +74,7 @@ between fields
 
 ![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem5.PNG)
 
-#Problem6
+## Problem6
 
 ```
 Output Requirements
@@ -107,7 +107,7 @@ select * from solution limit 10;
 
 ![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem6.PNG)
 
-#Problem7
+## Problem7
 
 ```
 Output Requirements
@@ -131,7 +131,7 @@ where city ='Seattle'  limit 10;
 ![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem7.PNG)
 
 
-#Problem8
+## Problem8
 
 ```
 Data Description
@@ -155,7 +155,7 @@ sqoop export --connect jdbc:mysql://localhost/problem8 --username cloudera --pas
 
 ![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image_p2/problem8_sqoop.PNG)
 
-#Problem9
+## Problem9
 
 ```
 Output Requirements
