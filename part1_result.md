@@ -252,8 +252,9 @@ EXIT;
   $ mysql -u root -p test < ./authors.sql
   $ mysql -u root -p test < ./posts.sql
 ```
-![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/2%EA%B0%9C%20table%20%EC%83%9D%EC%84%B1.PNG)
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/post%20author%20sql%20%EC%88%98%ED%96%89.PNG)
 
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/2%EA%B0%9C%20table%20%EC%83%9D%EC%84%B1.PNG)
 
 
 ## 4) training 계정에 권한 부여
@@ -264,6 +265,8 @@ GRANT ALL ON test.* TO 'training'@'localhost' IDENTIFIED BY 'training';
 FLUSH PRIVILEGES;
 ```
 
+## 5) 권한과 table생성, table 별 건 수 결과 확인
+```
 $ mysql -u training -p
 
 show databases;
@@ -275,16 +278,45 @@ desc posts;
 
 select count(*) from authors;
 select count(*) from posts;
->>>>> 2.데이터 확인.PNG
+```
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/%EA%B6%8C%ED%95%9C%EB%B6%80%EC%97%AC%20%EB%B0%8F%20DB%20%ED%99%95%EC%9D%B8.PNG)
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/table%EA%B3%BC%20%EA%B2%B0%EA%B3%BC%ED%99%95%EC%9D%B8.PNG)
 
 
-3번 문제
+# Q3
+```
+Extract tables authors and posts from the database and create Hive tables.
+a. Use Sqoop to import the data from authors and posts
+b. For both tables, you will import the data in tab delimited text format
+c. The imported data should be saved in training’s HDFS home directory
+i. Create authors and posts directories in your HDFS home directory
+ii. Save the imported data in each
+d. In Hive, create 2 tables: authors and posts. They will contain the data that you
+imported from Sqoop in above step.
+e. You are free to use whatever database in Hive.
+f. Create authors as an external table.
+g. Create posts as a managed table.
+```
 
+## sqoop로 2개 table import
+
+```
 sqoop import --connect jdbc:mysql://172.31.39.168/test --username training --password training --table authors --target-dir /user/training/authors --hive-import --create-hive-table --hive-table default.authors
 sqoop import --connect jdbc:mysql://172.31.39.168/test --username training --password training --table posts --target-dir /user/training/posts --hive-import --create-hive-table --hive-table default.posts
+```
 
-4번 문제
+# Q4
+```
+Create and run a Hive/Impala query. From the query, generate the results dataset that
+you will use in the next step to export in MySQL.
+a. Create a query that counts the number of posts each author has created.
+i. The id column in authors matches the author_id key in posts.
+b. The output of the query should provide the following information:
+```
 
+```
 select A.id,
        A.first_name AS fname,
        A.last_name AS Lname,
@@ -294,12 +326,23 @@ select A.id,
                 from posts P
                group by author_id ) B
     on A.id = B.author_id
-	
-화면캡쳐
+```
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/Q4%20query%20result.PNG)
 
 
-5번 문제
+# Q5
+```
+Export the data from above query to MySQL
+a. Create a MySQL table and name it “results”
+i. Make sure it has the necessary columns of matching type as the results of
+your query from above
+b. The table should be created under the database “test”
+c. Finally, export into MySQL the results of your query
+```
 
+## results table 생성
+```
 $ mysql -u training -p
 
 use test;
@@ -310,4 +353,6 @@ CREATE TABLE `results` (
   `Lname` varchar(255) default NULL,
   `num_posts` int default 0
 );
+```
 
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/results%20table%20creat.PNG)
