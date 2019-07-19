@@ -1,6 +1,7 @@
-Part2
+#Part2
 
-#Problem1
+##Problem1
+```
 Write a query to compare each active account’s balance to the average balance of all closed
 accounts of the same type.
 
@@ -16,7 +17,7 @@ select A.id, A.type, A.status, A.amount, (A.amount - B.avg_amt) as difference
 from account A 
 join (select type, avg(amount) as avg_amt from problem1.account group by type) B
 On A.type = B.type;
-
+```
 
 #Problem2
 ## Create an employee table in the metastore that contains the employee records stored in HDFS
