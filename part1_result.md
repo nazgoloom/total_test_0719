@@ -1,7 +1,7 @@
-#part1
+# part1
 
 
-##1. IP 세팅
+## 1. IP 세팅
 
 ```
 nd1  52.79.95.134   172.31.39.168
@@ -9,7 +9,6 @@ nd1  54.180.14.25   172.31.33.77
 nd1  54.180.164.246   172.31.36.182
 nd1  54.180.167.90   172.31.44.121
 nd1  54.180.170.107   172.31.44.125
-```
 
 All node hosts 파일을 수정한다  --> 프라이빗  IP로 수정 
 
@@ -21,32 +20,38 @@ All node hosts 파일을 수정한다  --> 프라이빗  IP로 수정
 172.31.44.125	    nd5.jdh.com nd5
 ```
 
-```
-2. centos pw를 admin 으로 변경한다
+## 2. centos pw를 admin 으로 변경한다
 
+```
     $ sudo passwd centos
 ```
 
 
-3. All node training user 를 생성하고 권한 준다
+## 3. All node training user 를 생성하고 권한 준다
+
+```
    group 을 만들고 권한 준다
 
 	$ sudo useradd training -u 3800
 	$ sudo passwd training
 	$ sudo groupadd skcc
 	$ sudo usermod -a -G skcc training
-	
-4. password 정책을 수정한다
-   
+```
+
+## 4. password 정책을 수정한다
+```   
    $ sudo vi /etc/ssh/sshd_config
     변경 -> PasswordAuthentication yes
-	
-5. All node sshd.service 재기동
-  
-   $ sudo service sshd restart
-   
-6. 각  node의  hostname 을 바꾼다
+```
 
+## 5. All node sshd.service 재기동
+```  
+   $ sudo service sshd restart
+```
+
+## 6-1 각  node의  hostname 을 바꾼다
+
+```
   $ sudo hostnamectl set-hostname nd1.jdh.com
   $ sudo hostnamectl set-hostname nd2.jdh.com
   $ sudo hostnamectl set-hostname nd3.jdh.com
@@ -56,41 +61,56 @@ All node hosts 파일을 수정한다  --> 프라이빗  IP로 수정
   $ sudo reboot  --> reboot 한다
   
   $ hostname  --> hostname 이 잘 바뀌었는지 확인
-  
-  $ getent group skcc          --> skcc 그룹에 training 계정이 들어 갔는지 확인
+```
+## 6-2 skcc 그룹에 training 계정이 들어 갔는지 확인
+```
+  $ getent group skcc          
   $ getent passwd training
-  
-7. All node CM repo파일 가져오기
+```
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/getent%20group%20skcc.PNG)
 
+## 6-3 node filesystem 확인
+```
+  $ df -h
+```
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/nd1%20filesystem.PNG)
+
+
+## 7. All node CM repo파일 가져오기
+```
   $ sudo yum install -y wget
   $ sudo wget https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/cloudera-manager.repo -P /etc/yum.repos.d
-  
-8. All node repo 파일 수정
+```
 
+## 8. All node repo 파일 수정
+
+```
   $ sudo vi /etc/yum.repos.d/cloudera-manager.repo
   
   baseurl=https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/5.15.2/
-  
-9. All node java 1.8 설치
+```
 
+## 9. All node java 1.8 설치
+```
   $ sudo yum install java-1.8.0-openjdk-devel.x86_64
+```  
   
-  
-12. All node mysql connector 설치
-
+## 10. All node mysql connector 설치
+```
   $ wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.47.tar.gz
   $ tar zxvf mysql-connector-java-5.1.47.tar.gz
   $ sudo mkdir -p /usr/share/java/
   $ cd mysql-connector-java-5.1.47
   $ sudo cp mysql-connector-java-5.1.47-bin.jar /usr/share/java/mysql-connector-java.jar  
+```  
   
-  
-10. CM서버 nd1에 CM 설치
-
+## 11. CM서버 nd1에 CM 설치
+```
   $ sudo yum install -y cloudera-manager-daemons cloudera-manager-server
-  
-11. CM서버 nd1에 maria DB 설치
+```  
 
+## 12-1. CM서버 nd1에 maria DB 설치
+```
   $ sudo yum install -y mariadb-server
   $ sudo systemctl enable mariadb
   $ sudo systemctl start mariadb
@@ -113,9 +133,10 @@ Reload privilege tables now? [Y/n] Y
 [...]
 All done!  If you've completed all of the above steps, your MariaDB
 installation should now be secure.
+```
 
-12. maria DB 접속 후 계정 생성
-
+## 12-2. maria DB 접속 후 계정 생성
+```
 mysql -u root -p --> db 접속
  
   CREATE DATABASE scm DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
@@ -147,29 +168,51 @@ nd1에  training 계정 생성
   GRANT ALL ON *.* TO 'training'@'%' IDENTIFIED BY 'training';
   FLUSH PRIVILEGES;
   EXIT;
+```
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/mariaDB_1.PNG)
 
-6. cloudera manager 설치 (CM Host)
+
+## 13-1. cloudera manager 설치 (CM Host)
+```
 sudo yum install cloudera-manager-daemons cloudera-manager-server
+```
 
-7. cloudera manager db 설정 (CM Host)
+## 13-2. cloudera manager db 설정 (CM Host)
+```
 sudo /usr/share/cmf/schema/scm_prepare_database.sh mysql scm scm password
 db.mgmt.properries 존재한다면
 sudo rm /etc/cloudera-scm-server/db.mgmt.properties
+```
 
-8. cloudera manager 실행 (CM Host)
+## 13-3. cloudera manager 실행 (CM Host)
+```
 sudo systemctl start cloudera-scm-server
 sudo tail -f /var/log/cloudera-scm-server/cloudera-scm-server.log --> 로그 확인
-  
+```
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_start.PNG)
 
  
- HDFS user를 확인해야 한다 --> 
- HUE 에서 사용자 추가하면 HDFS 홈 디렉토리가 생긴다
+## 14. CM login 후 install
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_Login.PNG)
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_install_1.PNG)
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_install_2.PNG)
  
- 
- 13. CM기동
- sudo systemctl start cloudera-scm-server
- 
- 
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_install_3.PNG)
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_install_4.PNG)
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_install_5_1.PNG)
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_install_5_2.PNG)
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_install_6.PNG)
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_install_7.PNG)
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_install_8.PNG)
  
 CREATE DATABASE test;
 
