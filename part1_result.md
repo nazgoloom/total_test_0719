@@ -27,7 +27,7 @@ All node hosts 파일을 수정한다  --> 프라이빗  IP로 수정
 ```
 
 
-## 3. All node training user 를 생성하고 권한 준다
+## 3. training user 를 생성하고 권한 준다
 
 ```
    group 을 만들고 권한 준다
