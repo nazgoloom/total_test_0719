@@ -1,6 +1,6 @@
-#Part2
+# Part2
 
-##Problem1
+## Problem1
 ```
 Write a query to compare each active account’s balance to the average balance of all closed
 accounts of the same type.
