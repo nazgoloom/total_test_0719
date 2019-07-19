@@ -124,9 +124,6 @@ sqoop export --connect jdbc:mysql://localhost/problem8 --username cloudera --pas
 
 
 #Problem9
-Data Description
-The customer records are stored in the customer table in the problem9 database. The id column is
-a unique identifier for that record.
 Output Requirements
  Create a new table named solution stored in the problem9 database
  Maintain the same column names and datatypes as the customer table, except
@@ -134,8 +131,37 @@ store the id as a string
  The solution table should have all of the data from the customer table, with the
 addition of the letter ‘A’ to the existing id values to make them unique
 
+select * from customer limit 10;
 
+create table solution
+(
+	  id     STRING,
+	  fname  STRING,
+	  lname    STRING,
+	  address STRING,
+	  city     STRING,
+	  state   STRING,
+	  zip      STRING,
+	  birthyear STRING
+)
+
+insert into solution
+select concat('A', id),
+	     fname,
+	     lname,
+	     address,
+	     city,
+	     state,
+	     zip,
+	     birthday
+  FROM customer;
+  
+alter table customer change id id string;
+
+select * from solution limit 10;
 
 
  
+   
+
    
