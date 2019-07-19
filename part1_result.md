@@ -216,48 +216,54 @@ sudo tail -f /var/log/cloudera-scm-server/cloudera-scm-server.log --> 로그 확
 
 ![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_install_8.PNG)
  
-CREATE DATABASE test;
+## CM install 후 sqoop 설치
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_sqoop_install.PNG)
+
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/CM_sqoop_install_2.PNG)
 
 
-  $ mysql -u root -p
+# Q2
+'''
+In MySQL create the sample tables that will be used for the rest of the test
+a. In MySQL, create a database and name it “test”
+b. Create 2 tables in the test databases: authors and posts.
+i. You will use the authors.sql and posts.sql script files that will be provided
+for you to generate the necessary tables
+c. Create and grant user “training” with password “training” full access to the test
+database. (It is ok if you give training full access to the entire MySQL database)
+'''
 
--- test database 생성
-CREATE DATABASE test;
-EXIT;
+## 1) test database 생성
 
-
-ssh -i skcc.pem training@52.79.95.134
-
-scp authors-23-04-2019-02-34-beta.sql training@54.180.164.246:.
-
-scp authors.sql training@52.79.95.134:.
-
-
-2번 문제
-
+```
  $ mysql -u root -p
-
--- test database 생성
+ 
 CREATE DATABASE test;
 EXIT;
+```
 
--- filezilla 툴로 쿼리 파일 서버로 전송
+## 2) winscp툴로 쿼리 파일 서버로 전송
 
--- data import (테이블 및 데이터 생성)
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/sql%20file%20load.PNG)
+
+## 3) data import (테이블 및 데이터 생성)
+```
   $ mysql -u root -p test < ./authors.sql
   $ mysql -u root -p test < ./posts.sql
+```
+![photo.PNG](https://github.com/nazgoloom/total_test_0719/blob/master/image/2%EA%B0%9C%20table%20%EC%83%9D%EC%84%B1.PNG)
 
->>>>> 2.Database,테이블 및 데이터 생성.PNG
 
--- 권한 부여
+
+## 4) training 계정에 권한 부여
+```
   $ mysql -u root -p
 GRANT ALL ON test.* TO 'training'@'%' IDENTIFIED BY 'training';
 GRANT ALL ON test.* TO 'training'@'localhost' IDENTIFIED BY 'training';
 FLUSH PRIVILEGES;
+```
 
->>>>> 2.training 계정 권한부여.PNG
-
--- 확인
 $ mysql -u training -p
 
 show databases;
