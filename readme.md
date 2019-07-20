@@ -1,5 +1,7 @@
 # Data Biz Unit 04103 정동희
 
+![photo.jpg](https://github.com/nazgoloom/total_test_0719/blob/master/image/jdh.jpg)
+
 ## 부족한 학생 가르치시느라 고생 많으셨습니다
 ## part1_result.md,  part2_result.md 에 답안지와 화면캡처 올렸습니다
 
